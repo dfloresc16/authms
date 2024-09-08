@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: msvc-authms
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  jpa:
+    hibernate:
+      ddl-auto: update
+server:
+  port: 8081
+jwt:
+  secret: ${JWT_SECRET}
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${random.value}
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://host.docker.internal:8761/eureka
