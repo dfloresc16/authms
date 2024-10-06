@@ -2,9 +2,9 @@ spring:
   application:
     name: msvc-authms
   datasource:
-    url: jdbc:sqlserver://192.168.3.3:1433;databaseName=userspt;encrypt=true;trustServerCertificate=true;
-    username: sa
-    password: '040201'
+    url: jdbc:sqlserver://upiita-pt.database.windows.net:1433;database=microserviciosPT;user=upiita@upiita-pt;password=Ipn2024!;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
+    username: upiita
+    password: 'Ipn2024!'
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
   jpa:
     hibernate:
@@ -21,6 +21,6 @@ eureka:
     fetch-registry: true
     register-with-eureka: true
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://158.23.81.168:8761/eureka
 #http://host.docker.internal:8761/eureka
 #jdbc:sqlserver://pt-server1.database.windows.net:1433;database=usersms;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net 
