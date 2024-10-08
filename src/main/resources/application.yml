@@ -15,6 +15,7 @@ jwt:
   secret: 357638792F423F4421472B4B6250655368566D597133743677397A2443264629
 eureka:
   instance:
+    ip-address: 158.23.81.168
     instance-id: ${spring.application.name}:${random.value}
     prefer-ip-address: true
   client:
@@ -22,5 +23,3 @@ eureka:
     register-with-eureka: true
     service-url:
       defaultZone: http://158.23.81.168:8761/eureka
-#http://host.docker.internal:8761/eureka
-#jdbc:sqlserver://pt-server1.database.windows.net:1433;database=usersms;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net 
