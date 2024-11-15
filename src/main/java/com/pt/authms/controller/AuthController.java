@@ -17,7 +17,10 @@ import com.pt.authms.model.commons.CommonController;
 import com.pt.authms.model.dtos.GenericResponseDTO;
 import com.pt.authms.model.dtos.TokenDTO;
 import com.pt.authms.model.dtos.UserDTO;
+import com.pt.authms.model.dtos.UserLoginDTO;
+import com.pt.authms.model.dtos.response.UserDTOResponse;
 import com.pt.authms.service.impl.AuthServiceImpl;
+import com.pt.authms.service.impl.NotificationServiceImpl;
 import com.pt.authms.service.impl.UserServiceImpl;
 
 @RestController
@@ -30,11 +33,14 @@ public class AuthController extends CommonController{
 
     @Autowired
     private UserServiceImpl userService;
+    
+    @Autowired
+    private NotificationServiceImpl notificationServiceImpl;
 
     @RequestMapping(path = "/login", method = RequestMethod.POST)
-    public ResponseEntity<GenericResponseDTO<TokenDTO>> login(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<GenericResponseDTO<TokenDTO>> login(@RequestBody UserLoginDTO userDTO) {
         try {
-            logger.info(String.format("Start login for user: %s", userDTO.getUserName()));
+            logger.info(String.format("Start login for user with email: %s", userDTO.getEmail()));
             TokenDTO tokenDTO = authService.login(userDTO);
             return ResponseEntity.ok(new GenericResponseDTO(SUCCESS, HttpStatus.OK.value(),null,null,
                     "service execute succesfully",tokenDTO));
@@ -53,8 +59,10 @@ public class AuthController extends CommonController{
     public ResponseEntity<GenericResponseDTO<UserDTO>> create(@RequestBody UserDTO userDTO) {
         try {
             logger.info(String.format("Start create user: %s", userDTO.getUserName()));
+            UserDTOResponse response = userService.save(userDTO);
+            notificationServiceImpl.sendNotification(response);
             return ResponseEntity.ok(new GenericResponseDTO(SUCCESS, HttpStatus.OK.value(),null,null,
-                    "service execute succesfully",userService.save(userDTO)));
+                    "service execute succesfully",response));
         }catch (ResponseStatusException e){
             logger.error("Exception: " + e.getMessage());
             return new ResponseEntity<>(new GenericResponseDTO<>(ERROR, HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.toString(),
@@ -69,7 +77,7 @@ public class AuthController extends CommonController{
     @RequestMapping(path = "/validate", method = RequestMethod.POST)
     public ResponseEntity<GenericResponseDTO<TokenDTO>> validate(@RequestParam String token){
         try {
-            logger.info("<<<Start login from AuthController>>>");
+            logger.info("<<<Start validate from AuthController>>>");
             TokenDTO tokenDTO = authService.validate(token);
             return ResponseEntity.ok(new GenericResponseDTO(SUCCESS,HttpStatus.OK.value(), null,null,
                     "service execute succesfully",tokenDTO));
@@ -79,8 +87,25 @@ public class AuthController extends CommonController{
                     e.getMessage(), "service execute", null), HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
             logger.error("Exception: " + e.getMessage());
-            return new ResponseEntity<>(new GenericResponseDTO<>(ERROR, HttpStatus.INTERNAL_SERVER_ERROR.value(), HttpStatus.INTERNAL_SERVER_ERROR.toString(),
-                    e.getMessage(), "service execute", null), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new GenericResponseDTO<>(ERROR, HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.toString(),
+                    e.getMessage(), "service execute", null), HttpStatus.UNAUTHORIZED);
+        }
+    }
+    
+    @RequestMapping(path = "/active", method = RequestMethod.GET)
+    public ResponseEntity<GenericResponseDTO<Boolean>> activeUser(@RequestParam String pin){
+        try {
+            logger.info("<<<Start active user from AuthController>>>");
+            return ResponseEntity.ok(new GenericResponseDTO(SUCCESS,HttpStatus.OK.value(), null,null,
+                    "service execute succesfully",notificationServiceImpl.validatePin(pin)));
+        }catch (ResponseStatusException e){
+            logger.error("Exception: " + e.getMessage());
+            return new ResponseEntity<>(new GenericResponseDTO<>(ERROR, HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.toString(),
+                    e.getMessage(), "service execute", null), HttpStatus.UNAUTHORIZED);
+        }catch (Exception e){
+            logger.error("Exception: " + e.getMessage());
+            return new ResponseEntity<>(new GenericResponseDTO<>(ERROR, HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.toString(),
+                    e.getMessage(), "service execute", null), HttpStatus.UNAUTHORIZED);
         }
     }
 

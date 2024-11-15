@@ -14,6 +14,8 @@ public class UserDTOResponse {
     private String phoneNumber;
 
     private String email;
+    
+    private String pin;
 
     public Long getId() {
         return userId;
@@ -63,5 +65,20 @@ public class UserDTOResponse {
         this.phoneNumber = phoneNumber;
     }
 
+	/**
+	 * @return the pin
+	 */
+	public String getPin() {
+		return pin;
+	}
+
+	/**
+	 * @param pin the pin to set
+	 */
+	public void setPin(String pin) {
+		this.pin = pin;
+	}
+    
+    
 
 }

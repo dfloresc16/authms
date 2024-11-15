@@ -15,7 +15,9 @@ public class UserDTO {
     private String password;
 
     private String email;
-
+    
+    private String pin;
+    
     public UserDTO() {}
 
     public UserDTO(String name, String lastName, String userName, String phoneNumber, String password, String email) {
@@ -84,6 +86,20 @@ public class UserDTO {
         this.phoneNumber = phoneNumber;
     }
 
+	/**
+	 * @return the pin
+	 */
+	public String getPin() {
+		return pin;
+	}
 
+	/**
+	 * @param pin the pin to set
+	 */
+	public void setPin(String pin) {
+		this.pin = pin;
+	}
+
+    
 }
 

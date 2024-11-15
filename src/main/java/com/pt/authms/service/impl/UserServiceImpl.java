@@ -14,6 +14,7 @@ import com.pt.authms.model.entity.GenericMapper;
 import com.pt.authms.model.entity.Userms;
 import com.pt.authms.repository.UsermsRepository;
 import com.pt.authms.service.UsermsService;
+import com.pt.authms.utils.PinGenerator;
 
 @Service
 public class UserServiceImpl implements UsermsService{
@@ -46,7 +47,9 @@ public class UserServiceImpl implements UsermsService{
                 userDTO.getUserName(),
                 userDTO.getPhoneNumber(),
                 encoder.encode(userDTO.getPassword()),
-                userDTO.getEmail()
+                userDTO.getEmail(),
+                false,
+                PinGenerator.generatePin()
         );
 
         Userms savedUser = userRepository.save(newUser);

@@ -32,12 +32,24 @@ public class Userms {
 
     @Column(length = 50, nullable = false)
     private String email;
+    
+    private Boolean active;
+    
+    private String pin;
+    
+    public Userms() {}
 
-    public Userms() {
-		super();
-	}
-
-	public Userms(String name, String lastName, String userName, String phoneNumber, String password, String email) {
+	/**
+	 * @param name
+	 * @param lastName
+	 * @param userName
+	 * @param phoneNumber
+	 * @param password
+	 * @param email
+	 * @param active
+	 */
+	public Userms(String name, String lastName, String userName, String phoneNumber, String password, String email,
+			Boolean active, String pin) {
 		super();
 		this.name = name;
 		this.lastName = lastName;
@@ -45,62 +57,136 @@ public class Userms {
 		this.phoneNumber = phoneNumber;
 		this.password = password;
 		this.email = email;
+		this.active = active;
+		this.pin = pin;
 	}
 
+	/**
+	 * @return the id
+	 */
 	public Long getId() {
-        return id;
-    }
+		return id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public String getLastName() {
-        return lastName;
-    }
+	/**
+	 * @return the lastName
+	 */
+	public String getLastName() {
+		return lastName;
+	}
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+	/**
+	 * @param lastName the lastName to set
+	 */
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 
-    public String getUserName() {
-        return userName;
-    }
+	/**
+	 * @return the userName
+	 */
+	public String getUserName() {
+		return userName;
+	}
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+	/**
+	 * @param userName the userName to set
+	 */
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
+	/**
+	 * @return the phoneNumber
+	 */
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
+	/**
+	 * @param phoneNumber the phoneNumber to set
+	 */
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	/**
+	 * @return the password
+	 */
+	public String getPassword() {
+		return password;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	/**
+	 * @param password the password to set
+	 */
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	/**
+	 * @return the email
+	 */
+	public String getEmail() {
+		return email;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	/**
+	 * @param email the email to set
+	 */
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
+	/**
+	 * @return the active
+	 */
+	public Boolean getActive() {
+		return active;
+	}
+
+	/**
+	 * @param active the active to set
+	 */
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
+	/**
+	 * @return the pin
+	 */
+	public String getPin() {
+		return pin;
+	}
+
+	/**
+	 * @param pin the pin to set
+	 */
+	public void setPin(String pin) {
+		this.pin = pin;
+	}
+    
+	
+    
 }

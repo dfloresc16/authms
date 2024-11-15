@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificación de Cuenta</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background-color: #4CAF50;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .content {
+            padding: 20px;
+            color: #333;
+        }
+        .content p {
+            margin: 0 0 15px;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        .user-info {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .pin {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4CAF50;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .footer {
+            background-color: #f1f1f1;
+            padding: 10px;
+            text-align: center;
+            font-size: 12px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Verificación de Cuenta</h1>
+        </div>
+        <div class="content">
+            <p>Hola, <strong>{{nombre}}</strong>!</p>
+            <p>Gracias por registrarte en nuestro servicio. Para completar tu registro, por favor verifica tu correo electrónico usando el código PIN a continuación:</p>
+            <div class="user-info">
+                <p><strong>Correo electrónico:</strong> {{correo}}</p>
+            </div>
+            <div class="pin">
+                {{pin}}
+            </div>
+            <p>Este código es válido solo por 15 minutos.</p>
+            <p>Si no solicitaste esta verificación, puedes ignorar este correo.</p>
+            <p>Gracias, <br> El equipo de Itzel/Diego</p>
+        </div>
+        <div class="footer">
+            <p>&copy; 2024 Itzel/Diego. Todos los derechos reservados.</p>
+        </div>
+    </div>
+</body>
+</html>
