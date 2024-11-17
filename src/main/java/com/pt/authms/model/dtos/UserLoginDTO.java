@@ -1,6 +1,8 @@
 package com.pt.authms.model.dtos;
 
 public class UserLoginDTO {
+	
+	private Long id;
 
     private String password;
 
@@ -9,10 +11,31 @@ public class UserLoginDTO {
 	public UserLoginDTO() {
 	}
 
-	public UserLoginDTO(String password, String email) {
+	/**
+	 * @param id
+	 * @param password
+	 * @param email
+	 */
+	public UserLoginDTO(Long id, String password, String email) {
 		super();
+		this.id = id;
 		this.password = password;
 		this.email = email;
+	}
+	
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	/**
