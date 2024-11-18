@@ -12,13 +12,10 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create-drop
-      dialect: org.hibernate.dialect.SQLServerDialec
       show_sql: true
       properties:
         hibernate.format_sql: true
-logging:
-  level:
-    com.zaxxer.hikari: DEBUG
+      dialect: org.hibernate.dialect.SQLServerDialec
   mail:
     host: smtp.gmail.com
     port: 587
@@ -30,6 +27,9 @@ logging:
           auth: true
           starttls:
             enable: true
+logging:
+  level:
+    com.zaxxer.hikari: DEBUG
 server:
   port: 8081
 jwt:
