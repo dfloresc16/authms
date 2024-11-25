@@ -12,7 +12,6 @@ public class CorsConfig {
     public CorsWebFilter corsWebFilter() {
         CorsConfiguration config = new CorsConfiguration();
         config.addAllowedOrigin("http://localhost:4200");
-        config.addAllowedOrigin("https://tu-dominio.com");
         config.addAllowedOrigin("https://black-wave-054ac8f10.5.azurestaticapps.net");
         config.addAllowedMethod("*"); // Permitir todos los métodos
         config.addAllowedHeader("*"); // Permitir todos los headers
