@@ -12,4 +12,6 @@ public interface NotificationService {
 	public void sendNotification(UserDTOResponse userDTO) throws MessagingException, IOException;
 	
 	public boolean validatePin(String pin);
+	
+	public void sendRecoveryPass(String email) throws MessagingException, IOException;
 }

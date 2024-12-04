@@ -186,6 +186,21 @@ public class Userms {
 	public void setPin(String pin) {
 		this.pin = pin;
 	}
+
+	@Override
+	public String toString() {
+		return "Userms "
+				+ "{"
+				+ "name:" + name + ", " + "\n"
+				+ "lastName:" + lastName + "," + "\n"
+				+ "userName" + userName + ", " + "\n"
+				+ "phoneNumber:" + phoneNumber + ", " + "\n"
+				+ "password:" + password + ", " + "\n"
+				+ "email:" + email + ", " + "\n"
+				+ "active:" + active + ", " + "\n"
+				+ "pin:" + pin + "\n"
+				+ "}";
+	}
     
 	
     

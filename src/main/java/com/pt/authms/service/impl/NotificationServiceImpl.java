@@ -35,6 +35,8 @@ public class NotificationServiceImpl implements NotificationService {
 	@Autowired
 	private UsermsRepository repository;
 	
+	@Autowired 
+	private UserServiceImpl userServiceImpl;
 	
 	private static final Logger log = LoggerFactory.getLogger(NotificationServiceImpl.class);
 
@@ -71,7 +73,44 @@ public class NotificationServiceImpl implements NotificationService {
 		}
 
 	}
+	
+	
+	@Override
+	public void sendRecoveryPass(String email){
+		try {
+			UserDTOResponse userDTO = userServiceImpl.getUserInformation(email);
+			String pin = PinGenerator.generatePin();
+			log.info("PIN recoveryPass : " + pin);
+			MimeMessage mimeMessage = mailSender.createMimeMessage();
+			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
 
+			// Cargar la plantilla de HTML desde el classpath
+			ClassPathResource resource = new ClassPathResource("templates/email-template.html");
+			String htmlTemplate;
+
+			try (InputStream inputStream = resource.getInputStream();
+					BufferedReader reader = new BufferedReader(
+							new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
+				htmlTemplate = reader.lines().collect(Collectors.joining(System.lineSeparator()));
+			}
+
+			// Reemplazar los placeholders
+			log.info("pin: "+ userDTO.getPin());
+			String htmlContent = htmlTemplate.replace("{{nombre}}", userDTO.getName() + " " + userDTO.getLastName())
+					.replace("{{correo}}", userDTO.getEmail()).replace("{{pin}}", pin);
+
+			helper.setTo(userDTO.getEmail().trim());
+			helper.setSubject(String.format("Recuperacion de cuenta para:", userDTO.getName()));
+			helper.setText(htmlContent, true);
+			helper.setFrom("diegoflowers444@gmail.com");
+
+			mailSender.send(mimeMessage);
+		} catch (Exception e) {
+			log.error("e",e);
+		}
+
+	}
+	
 	@Override
 	public boolean validatePin(String pin) {
 		boolean pinValid = PinGenerator.isPinValid(pin);
@@ -87,5 +126,6 @@ public class NotificationServiceImpl implements NotificationService {
 		}
 		return false;
 	}
+	
 
 }
