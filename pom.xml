@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>com.pt.authms</groupId>
 	<artifactId>authms</artifactId>
-	<version>1.0.0</version> <!-- Cambia el número según corresponda -->
+	<version>2.0.0</version> <!-- Cambia el número según corresponda -->
 	<name>authms</name>
 	<description>Demo project for Spring Boot</description>
 	<url />
