@@ -109,40 +109,5 @@ public class AuthController extends CommonController{
         }
     }
     
-    @RequestMapping(path = "/sendPIN", method = RequestMethod.GET)
-    public ResponseEntity<GenericResponseDTO<Boolean>> getPIN(@RequestParam String email){
-        try {
-            logger.info("<<<Start sendPIN user from AuthController>>>");
-            logger.info(String.format("Email [%s]", email));
-            notificationServiceImpl.sendRecoveryPass(email);
-            return ResponseEntity.ok(new GenericResponseDTO(SUCCESS,HttpStatus.OK.value(), null,null,
-                    "service execute succesfully",null));
-        }catch (ResponseStatusException e){
-            logger.error("Exception: " + e.getMessage());
-            return new ResponseEntity<>(new GenericResponseDTO<>(ERROR, HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.toString(),
-                    e.getMessage(), "service execute", null), HttpStatus.UNAUTHORIZED);
-        }catch (Exception e){
-            logger.error("Exception: " + e.getMessage());
-            return new ResponseEntity<>(new GenericResponseDTO<>(ERROR, HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.toString(),
-                    e.getMessage(), "service execute", null), HttpStatus.UNAUTHORIZED);
-        }
-    }
-
-    @RequestMapping(path = "/recoveryPass", method = RequestMethod.POST)
-    public ResponseEntity<GenericResponseDTO<UserDTOResponse>> recoveryPass(@RequestBody UserDTO userDTO){
-        try {
-            logger.info("<<<Start recoveryPass user from AuthController>>>");
-            return ResponseEntity.ok(new GenericResponseDTO(SUCCESS,HttpStatus.OK.value(), null,null,
-                    "service execute succesfully",userService.updatePassword(userDTO)));
-        }catch (ResponseStatusException e){
-            logger.error("Exception: " + e.getMessage());
-            return new ResponseEntity<>(new GenericResponseDTO<>(ERROR, HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.toString(),
-                    e.getMessage(), "service execute", null), HttpStatus.UNAUTHORIZED);
-        }catch (Exception e){
-            logger.error("Exception: " + e.getMessage());
-            return new ResponseEntity<>(new GenericResponseDTO<>(ERROR, HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.toString(),
-                    e.getMessage(), "service execute", null), HttpStatus.UNAUTHORIZED);
-        }
-    }
 
 }

@@ -42,9 +42,10 @@ public class UserServiceImpl implements UsermsService{
      */
     @Override
     public UserDTOResponse save(UserDTO userDTO) {
-        Userms existingUser = userRepository.findByUserName(userDTO.getUserName())
-        		.orElseThrow(() -> new ResponseStatusException(HttpStatus.CONFLICT, "User already exists"));
-
+        Optional<Userms> existingUser = userRepository.findByUserName(userDTO.getUserName());
+        if (existingUser.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "User already exists");
+        }
         Userms newUser = new Userms(
                 userDTO.getName(),
                 userDTO.getLastName(),
