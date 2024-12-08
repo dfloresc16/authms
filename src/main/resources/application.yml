@@ -28,8 +28,8 @@ spring:
           starttls:
             enable: true
 logging:
-  level:
-    com.zaxxer.hikari: DEBUG
+  file:
+    name: ./logs/msvc-authms-${date:yyyy-MM-dd}.log # Archivo con fecha en el nombre
 server:
   port: 8081
 jwt:
