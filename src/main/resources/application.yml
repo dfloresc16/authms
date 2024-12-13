@@ -26,7 +26,10 @@ spring:
           starttls:
             enable: true
 logging:
-  file:
+ level:
+   org.hibernate: DEBUG
+   com.zaxxer.hikari: DEBUG
+ file:
     name: ./logs/msvc-authms-${date:yyyy-MM-dd}.log # Archivo con fecha en el nombre
 server:
   port: 8081
@@ -42,7 +45,3 @@ eureka:
     register-with-eureka: true
     service-url:
       defaultZone: http://158.23.246.23:8761/eureka #http://158.23.246.23:8761/eureka
-logging:
- level:
-   org.hibernate: DEBUG
-   com.zaxxer.hikari: DEBUG
