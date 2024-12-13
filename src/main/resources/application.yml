@@ -2,7 +2,7 @@ spring:
   application:
     name: msvc-authms
   datasource:
-    url: jdbc:sqlserver://158.23.246.23:1433:1433;database=microserviciosPT;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
+    url: jdbc:sqlserver://158.23.246.23:1433;database=microserviciosPT;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
     username: upiita
     password: 'Ipn2024!'
 #    url: jdbc:sqlserver://192.168.3.3:1433;databaseName=ptdb;encrypt=false;trustServerCertificate=true;
