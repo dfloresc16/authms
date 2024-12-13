@@ -2,7 +2,7 @@ spring:
   application:
     name: msvc-authms
   datasource:
-    url: jdbc:sqlserver://upiita-pt.database.windows.net:1433;database=microserviciosPT;user=upiita@upiita-pt;password=Ipn2024!;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
+    url: jdbc:sqlserver://158.23.246.23:1433:1433;database=microserviciosPT;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
     username: upiita
     password: 'Ipn2024!'
 #    url: jdbc:sqlserver://192.168.3.3:1433;databaseName=ptdb;encrypt=false;trustServerCertificate=true;
@@ -13,8 +13,6 @@ spring:
     hibernate:
       ddl-auto: update
       show_sql: true
-      properties:
-        hibernate.format_sql: true
       dialect: org.hibernate.dialect.SQLServerDialec
   mail:
     host: smtp.gmail.com
@@ -36,14 +34,14 @@ jwt:
   secret: 357638792F423F4421472B4B6250655368566D597133743677397A2443264629
 eureka:
   instance:
-    ip-address: 158.23.81.1 #158.23.81.1
+    ip-address: 158.23.246.23 #158.23.246.23
     instance-id: ${spring.application.name}:${random.value}
     prefer-ip-address: true
   client:
     fetch-registry: true
     register-with-eureka: true
     service-url:
-      defaultZone: http://158.23.81.1:8761/eureka #http://158.23.81.1:8761/eureka
+      defaultZone: http://158.23.246.23:8761/eureka #http://158.23.246.23:8761/eureka
 #logging:
 #  level:
 #    org.hibernate: DEBUG
