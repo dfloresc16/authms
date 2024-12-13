@@ -25,9 +25,6 @@ spring:
           auth: true
           starttls:
             enable: true
-logging:
- file:
-    name: ./logs/msvc-authms-${date:yyyy-MM-dd}.log # Archivo con fecha en el nombre
 server:
   port: 8081
 jwt:
