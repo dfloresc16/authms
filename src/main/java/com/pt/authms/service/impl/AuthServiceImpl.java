@@ -63,7 +63,7 @@ public class AuthServiceImpl implements AuthService {
         log.info(String.format("[%s] Token from user [%s] ", this.getClass().getSimpleName(), userName));
         Userms user = userRepository.findByUserName(userName)
                 .orElseThrow(()-> new ResponseStatusException(HttpStatus.UNAUTHORIZED));
-        log.info(String.format("[%s] Change Token [%s] ", this.getClass().getSimpleName()));
+        log.info(String.format("[%s] Change Token", this.getClass().getSimpleName()));
         return new TokenDTO(token);
     }
 
