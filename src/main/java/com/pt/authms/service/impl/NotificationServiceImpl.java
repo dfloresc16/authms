@@ -44,6 +44,7 @@ public class NotificationServiceImpl implements NotificationService {
 	@Override
 	public void sendNotification(UserDTOResponse userDTO){
 		try {
+			
 			MimeMessage mimeMessage = mailSender.createMimeMessage();
 			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
 
@@ -57,8 +58,8 @@ public class NotificationServiceImpl implements NotificationService {
 				htmlTemplate = reader.lines().collect(Collectors.joining(System.lineSeparator()));
 			}
 
-			// Reemplazar los placeholders
-			log.info("pin: "+ userDTO.getPin());
+			log.info(String.format("[%s] PIN : %s", this.getClass().getSimpleName(),userDTO.getPin()));
+			
 			String htmlContent = htmlTemplate.replace("{{nombre}}", userDTO.getName() + " " + userDTO.getLastName())
 					.replace("{{correo}}", userDTO.getEmail()).replace("{{pin}}", userDTO.getPin());
 
@@ -66,10 +67,10 @@ public class NotificationServiceImpl implements NotificationService {
 			helper.setSubject(String.format("Activacion de cuenta para:", userDTO.getName()));
 			helper.setText(htmlContent, true);
 			helper.setFrom("diegoflowers444@gmail.com");
-
+			log.info(String.format("[%s] Email send for user with email %s", this.getClass().getSimpleName(),userDTO.getEmail()));
 			mailSender.send(mimeMessage);
 		} catch (Exception e) {
-			log.error("e",e);
+			log.error("Error at sendNotification",e);
 		}
 
 	}

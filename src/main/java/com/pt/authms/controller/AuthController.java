@@ -1,6 +1,8 @@
 package com.pt.authms.controller;
 
 
+import java.time.LocalDateTime;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +42,7 @@ public class AuthController extends CommonController{
     @RequestMapping(path = "/login", method = RequestMethod.POST)
     public ResponseEntity<GenericResponseDTO<TokenDTO>> login(@RequestBody UserLoginDTO userDTO) {
         try {
-            logger.info(String.format("Start login for user with email: %s", userDTO.getEmail()));
+        	logger.info(String.format("[%s] Start login for user with email: %s at %s", this.getClass().getSimpleName(),userDTO.getEmail(), LocalDateTime.now()));
             TokenDTO tokenDTO = authService.login(userDTO);
             return ResponseEntity.ok(new GenericResponseDTO(SUCCESS, HttpStatus.OK.value(),null,null,
                     "service execute succesfully",tokenDTO));
@@ -58,7 +60,7 @@ public class AuthController extends CommonController{
     @RequestMapping(path = "/create", method = RequestMethod.POST)
     public ResponseEntity<GenericResponseDTO<UserDTO>> create(@RequestBody UserDTO userDTO) {
         try {
-            logger.info(String.format("Start create user: %s", userDTO.getUserName()));
+            logger.info(String.format("[%s] Start create user: %s", this.getClass().getSimpleName(),userDTO.getUserName()));
             UserDTOResponse response = userService.save(userDTO);
             notificationServiceImpl.sendNotification(response);
             return ResponseEntity.ok(new GenericResponseDTO(SUCCESS, HttpStatus.OK.value(),null,null,
@@ -77,7 +79,7 @@ public class AuthController extends CommonController{
     @RequestMapping(path = "/validate", method = RequestMethod.POST)
     public ResponseEntity<GenericResponseDTO<TokenDTO>> validate(@RequestParam String token){
         try {
-            logger.info("<<<Start validate from AuthController>>>");
+            logger.info(String.format("[%s] Validate token ", this.getClass().getSimpleName()));
             TokenDTO tokenDTO = authService.validate(token);
             return ResponseEntity.ok(new GenericResponseDTO(SUCCESS,HttpStatus.OK.value(), null,null,
                     "service execute succesfully",tokenDTO));
@@ -95,7 +97,7 @@ public class AuthController extends CommonController{
     @RequestMapping(path = "/active", method = RequestMethod.GET)
     public ResponseEntity<GenericResponseDTO<Boolean>> activeUser(@RequestParam String pin){
         try {
-            logger.info("<<<Start active user from AuthController>>>");
+            logger.info(String.format("[%s] Active user with PIN : %s", this.getClass().getSimpleName(),pin));
             return ResponseEntity.ok(new GenericResponseDTO(SUCCESS,HttpStatus.OK.value(), null,null,
                     "service execute succesfully",notificationServiceImpl.validatePin(pin)));
         }catch (ResponseStatusException e){

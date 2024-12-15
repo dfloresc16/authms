@@ -44,6 +44,7 @@ public class UserServiceImpl implements UsermsService{
     public UserDTOResponse save(UserDTO userDTO) {
         Optional<Userms> existingUser = userRepository.findByUserName(userDTO.getUserName());
         if (existingUser.isPresent()) {
+        	log.info(String.format("[%s] User already exist [%s]", this.getClass().getSimpleName(),existingUser.get().getName()));
             throw new ResponseStatusException(HttpStatus.CONFLICT, "User already exists");
         }
         Userms newUser = new Userms(
@@ -56,17 +57,17 @@ public class UserServiceImpl implements UsermsService{
                 false,
                 PinGenerator.generatePin()
         );
-
         Userms savedUser = userRepository.save(newUser);
+        log.info(String.format("[%s] User create and save ", this.getClass().getSimpleName()));
         return genericMapper.toDto(savedUser, UserDTOResponse.class);
     }
     
     
     public UserDTOResponse getUserInformation(String email) {
+    	log.info(String.format("[%s] Get information from user with email [%s]", this.getClass().getSimpleName(),email));
     	Userms existsUser = userRepository.findByEmail(email)
     			.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found"));
-    	log.info(String.format("Information: \n %s", existsUser.toString()));
-    	
+    	log.info(String.format("[%s] Information: \n %s", this.getClass().getSimpleName(),existsUser.toString()));
     	return genericMapper.toDto(existsUser, UserDTOResponse.class);
     }
 
@@ -83,7 +84,4 @@ public class UserServiceImpl implements UsermsService{
 		log.info(String.format("Update Password : \n", save.toString()));
 		return true;
 	}
-    
-    
-
 }

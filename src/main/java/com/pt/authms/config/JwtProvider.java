@@ -31,21 +31,22 @@ public class JwtProvider {
     private String secret;
 
     private SecretKey getSigningKey() {
-        logger.info("Generating signing key from secret.");
+        logger.info(String.format("[%s] Generate key", this.getClass().getSimpleName()));
         byte[] keyBytes = Decoders.BASE64.decode(secret);
         if (keyBytes.length < 32) {
+        	logger.info(String.format("[%s] Invalid key length", this.getClass().getSimpleName()));
             throw new IllegalArgumentException("The secret key must be at least 256 bits (32 bytes) long.");
         }
+        logger.info(String.format("[%s] Completed generate key", this.getClass().getSimpleName()));
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
     public String createToken(Userms ms) {
-        logger.info(String.format("Generating token for user %s with userId %d", ms.getUserName(), ms.getId()));
+        logger.info(String.format("[%s] Generating token for user %s with userId %d", this.getClass().getSimpleName(),ms.getUserName(), ms.getId()));
         Map<String, Object> claims = buildClaims(ms);
         Map<String, Object> headers = buildHeaders(ms);
         Date now = new Date();
         Date exp = new Date(now.getTime() + TOKEN_VALIDITY);
-
         return Jwts.builder()
                 .setHeaderParams(headers)
                 .setClaims(claims)
@@ -82,6 +83,7 @@ public class JwtProvider {
     }
 
     public void validate(String token) {
+    	
         try {
             Jwts.parserBuilder()
                     .setSigningKey(getSigningKey())
